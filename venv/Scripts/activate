@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\Users\Kferr\Desktop\MongoApp\venv"
+VIRTUAL_ENV="C:\Users\carlo\Documents\GitHub\MongoApp\venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
