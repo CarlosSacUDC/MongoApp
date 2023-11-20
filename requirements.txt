@@ -8,3 +8,4 @@ pyrebase4==4.5.0
 
 # python3 -m venv venv 
 # .\venv\Scripts\activate
+# $env:FLASK_DEBUG=1
