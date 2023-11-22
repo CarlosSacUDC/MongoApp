@@ -1,2 +1,5 @@
 
 testmongo.json
+venv
+.env
+
