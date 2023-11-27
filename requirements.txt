@@ -5,6 +5,7 @@ black==22.12.0
 Werkzeug==2.2.2
 pyrebase4
 flask-wtf
+firebase-admin
 
 
 # python3 -m venv venv 
