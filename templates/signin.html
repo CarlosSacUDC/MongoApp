@@ -1,0 +1,71 @@
+{% extends "header.html" %}
+{% block content %}
+<div class="container">
+
+    <div id="alerts"></div>
+    <h2 class="mt-5">Sign In</h2>
+    <form id="signin-form" method="POST" class="needs-validation" novalidate>
+        {{ form.hidden_tag() }}
+        <div class="mb-3">
+            {{ form.email.label(class="form-label") }} {{ form.email(id="email", class="form-control") }}
+        </div>
+        <div class="mb-3">
+            {{ form.password.label(class="form-label") }} {{ form.password(id="password", class="form-control") }}
+        </div>
+        {{ form.submit(class="btn btn-primary") }}
+    </form>
+</div>
+<script>
+
+    window.onload = function() {
+        var form = document.getElementById('signin-form');
+        if(form) {
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                var email = document.getElementById('email').value;
+                var password = document.getElementById('password').value;
+                firebase.auth().signInWithEmailAndPassword(email, password)
+                    .then((userCredential) => {
+                        // Signed in 
+                        var user = userCredential.user;
+                        fetch('/api/signin', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({email: email})
+                        })
+                        .then(response => response.json())
+                        .then(data => console.log(data));
+
+                    })
+                    .catch((error) => {
+                        var errorCode = error.code;
+                        var errorMessage = error.message;
+                        console.log('Error signing in: ', errorMessage);
+                    
+                        // Create a Bootstrap alert element
+                        var alert = document.createElement('div');
+                        alert.className = 'alert alert-warning alert-dismissible fade show';
+                        alert.role = 'alert';
+                        alert.innerHTML = '<strong>Holy guacamole!</strong> Invalid email or password' + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>';
+                    
+                        // Add the alert to the page
+                        var alerts = document.getElementById('alerts');
+                        alerts.appendChild(alert);
+                    });
+            });
+    
+            firebase.auth().onAuthStateChanged(function(user) {
+                if (user) {
+                    // User is signed in.
+                    console.log('User is signed in');
+                } else {
+                    // No user is signed in.
+                    console.log('No user is signed in');
+                }
+            });
+        }
+    };
+    </script>
+{% endblock %}
