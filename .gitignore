@@ -3,4 +3,5 @@ testmongo.json
 venv
 .env
 static\js\firebase_init.js
+firebase.py
 
