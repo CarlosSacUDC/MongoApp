@@ -43,6 +43,7 @@ app: Flask = Flask(__name__)
 @app.route("/")
 def index():
     first_name = "John"
+    return f"Hello, {first_name}!"
 
 app.config['SECRET_KEY'] = "mysecretkey"
 
@@ -126,6 +127,11 @@ def signin():
             # If the user does not exist, flash an error message
             flash('User does not exist', 'error')
     return render_template('signin.html', title='Sign In', form=form)
+
+@app.route('/signout', methods=['GET'])
+def signout():
+    session.pop('user', None)
+    return redirect(url_for('signin'))
 
 
 
