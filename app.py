@@ -50,24 +50,37 @@ def index():
 
 app.config['SECRET_KEY'] = "mysecretkey"
 
+# User Registration Form
 class SignupForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
     email = StringField('Email', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired()])
     submit = SubmitField('Sign Up')
-    
+
+# User Sign In Form
 class SignInForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Sign In')
     
+# Entity Registration Form
+class RegistrationForm(FlaskForm):
+    entity_name = StringField('Entity Name', validators=[DataRequired()])
+    rep_name = StringField('Representative Name', validators=[DataRequired()])
+    rep_title = StringField('Representative Title', validators=[DataRequired()])
+    email = StringField('Email', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    confirm_password = PasswordField('Confirm Password', validators=[DataRequired()])
+    submit = SubmitField('Sign Up')
+
+# Redirect user to their profile page if they are already signed in
 @app.before_request
 def before_request():
     if 'user' in session and request.endpoint in ['signin', 'signup']:
         return redirect(url_for('user', name=session['user']))
     
-# for debugging purposes   
+# Check if a user is signed in (for debugging purposes)   
 @app.route('/check_user', methods=['GET'])
 def check_user():
     if 'user' in session:
@@ -75,7 +88,7 @@ def check_user():
     else:
         return "No user is currently signed in."
 
-
+# Sign in a user
 @app.route('/api/signin', methods=['POST'])
 def api_signin():
     email = request.json.get('email')
@@ -84,7 +97,8 @@ def api_signin():
         return jsonify({'message': 'User signed in successfully'}), 200
     else:
         return jsonify({'message': 'No email provided'}), 400
-    
+
+# Signup a new user
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     form = SignupForm()
@@ -94,7 +108,7 @@ def signup():
         password = form.password.data
         confirm_password = form.confirm_password.data
         print(password)
-    # Check if the password is at least 6 characters long
+        # Check if the password is at least 6 characters long
         if len(password) < 6 or len(confirm_password) < 6:
             flash('Password must be at least 6 characters long', 'error')
             return render_template('signup.html', title='Sign Up', form=form)
@@ -128,6 +142,7 @@ def signup():
 
     return render_template('signup.html', title='Sign Up', form=form)
 
+# Sign in a user
 @app.route('/signin', methods=['GET', 'POST'])
 def signin():
     form = SignInForm()
@@ -154,11 +169,23 @@ def page_not_found(e):
 def internal_server_error(e):
     return render_template('500.html'), 500
 
-
 @app.route('/user')
 def user():
     return render_template('user.html')
 
+
+@app.route("/register", methods=['GET', 'POST'])
+def register():
+    form = RegistrationForm()
+    if form.validate_on_submit():
+
+
+
+        
+        # Here you should add the code to create a new user in your database
+        flash('Account created for {form.email.data}!', 'success')
+        return redirect(url_for('home'))
+    return render_template('register.html', title='Register', form=form)
 
 
 
