@@ -26,6 +26,9 @@ mongo_client: MongoClient = MongoClient(connection_string)
 
 # add in your database and collection from Atlas 
 database: Database = mongo_client.get_database('Neuro')
+
+user_collection: Collection = database.get_collection('users')
+
 collection: Collection = database.get_collection('assessment')
 
 # instantiating new object with “name”
@@ -46,8 +49,6 @@ def index():
     return f"Hello, {first_name}!"
 
 app.config['SECRET_KEY'] = "mysecretkey"
-
-
 
 class SignupForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
@@ -87,17 +88,25 @@ def api_signin():
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     form = SignupForm()
+
     if form.validate_on_submit():
         email = form.email.data
         password = form.password.data
         confirm_password = form.confirm_password.data
+        print(password)
+    # Check if the password is at least 6 characters long
+        if len(password) < 6 or len(confirm_password) < 6:
+            flash('Password must be at least 6 characters long', 'error')
+            return render_template('signup.html', title='Sign Up', form=form)
 
         # Check if the user is already registered
         try:
             user = auth.get_user_by_email(email)
-            flash(Markup("<strong>Holy guacamole!</strong> You're already registered. Please <a href='signin.html' class='alert-link'>sign in</a>."), 'error')
+            flash(Markup(f"<strong>Holy guacamole!</strong> You're already registered. Please <a href={url_for('signin')} class='alert-link'>sign in</a>."), 'error')
             return render_template('signup.html', title='Sign Up', form=form)
         except auth.UserNotFoundError:
+
+
             # User does not exist, check if the passwords match
             if password != confirm_password:
                 flash('Passwords do not match', 'error')
@@ -108,11 +117,16 @@ def signup():
                 email=email,
                 password=password
             )
-            flash('User {0} created successfully'.format(user.uid), 'success')
+            userdb = {
+                'uid': user.uid,
+                'name': form.name.data,
+                'email': email
+            }  
+            user_collection.insert_one(userdb)
+            
+            return redirect(url_for('signin'))
 
     return render_template('signup.html', title='Sign Up', form=form)
-
-
 
 @app.route('/signin', methods=['GET', 'POST'])
 def signin():
@@ -122,7 +136,6 @@ def signin():
         password = form.password.data
         try:
             user = auth.get_user_by_email(email)
-
         except auth.UserNotFoundError:
             # If the user does not exist, flash an error message
             flash('User does not exist', 'error')
@@ -133,18 +146,23 @@ def signout():
     session.pop('user', None)
     return redirect(url_for('signin'))
 
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
+
+@app.errorhandler(500)
+def internal_server_error(e):
+    return render_template('500.html'), 500
 
 
 @app.route('/user')
 def user():
     return render_template('user.html')
 
-@app.errorhandler(404)
-def page_not_found(e):
-    return render_template('404.html'), 404
-@app.errorhandler(500)
-def internal_server_error(e):
-    return render_template('500.html'), 500
+
+
+
+
 
 
 @app.route('/orgs', methods=['GET'])
