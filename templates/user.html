@@ -6,180 +6,63 @@
 <!------ Include the above in your HEAD tag ---------->
 
 <body>
-    <div class="container main-secction">
-        <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12 image-section">
-                <img src="">
+    <div class="container">
+        <button type="button" class="btn btn-secondary">Sign-out</button>
+      </div>
+      <div class="page-content page-container" id="page-content">
+        <div class="padding">
+            <div class="row container d-flex justify-content-center">
+    <div class="col-xl-6 col-md-12">
+       <div class="card user-card-full mt-5">   
+        <div class="row m-l-0 m-r-0">
+            <div class="col-sm-4 bg-c-lite-green user-profile">
+                <div class="card-block text-center text-white">
+                    <div class="m-b-25">
+                        <img src="https://img.icons8.com/bubbles/100/000000/user.png" class="img-radius" alt="User-Profile-Image">
+                    </div> 
+                    <h6 class="f-w-600">Hembo Tingor</h6>
+                    <p>Web Designer</p>
+                    <i class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
+                </div>
             </div>
-            <div class="row user-left-part">
-                <div class="col-md-3 col-sm-3 col-xs-12 user-profil-part pull-left">
-                    <div class="row ">
-                        <div class="col-md-12 col-md-12-sm-12 col-xs-12 user-image text-center">
-                            <img src="profile.png" class="">
+            <div class="col-sm-8">
+                <div class="card-block">
+                    <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Information</h6>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <p class="m-b-10 f-w-600">Email</p>
+                            <h6 class="text-muted f-w-400">rntng@gmail.com</h6>
                         </div>
-                        <div class="col-md-12 col-sm-12 col-xs-12 user-detail-section1 text-center">
-                            <button id="btn-contact" (click)="clearModal()" data-toggle="modal" data-target="#contact" class="btn btn-success btn-block follow mt-5">Contact Me</button>                               
-                        </div>
+                    <div class="col-sm-6">
+                        <p class="m-b-10 f-w-600">Phone</p>
+                        <h6 class="text-muted f-w-400">98979989898</h6>
                     </div>
                 </div>
-                <div class="col-md-9 col-sm-9 col-xs-12 pull-right profile-right-section">
-                    <div class="row profile-right-section-row">
-                        <div class="col-md-12 profile-header">
-                            <div class="row">
-                                <div class="col-md-8 col-sm-6 col-xs-6 profile-header-section1 pull-left">
-                                    <h1>User</h1>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="row">
-                                <div class="col-md-8">
-                                        <ul class="nav nav-tabs" role="tablist">
-                                                <li class="nav-item">
-                                                  <a class="nav-link active " href="#profile" role="tab" data-toggle="tab"><i class="fas fa-user-circle"></i>Profile Details</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                  <a class="nav-link" href="#buzz" role="tab" data-toggle="tab"><i class="fas fa-info-circle"></i> User Details</a>
-                                                </li>                                                
-                                              </ul>
-                                              
-                                              <!-- Tab panes -->
-                                              <div class="tab-content">
-                                                <div role="tabpanel" class="tab-pane fade show active" id="profile">
-                                                        <div class="row">
-                                                            </div>
-                                                            <div class="row mt-3">
-                                                                <div class="col-md-2">
-                                                                    <label>Nombre</label>
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <p>Juan Perez</p>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-md-2">
-                                                                    <label>Email</label>
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <p>juanp@gmail.com</p>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-md-2">
-                                                                    <label>Profesion</label>
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <p>Developer</p>
-                                                                </div>
-                                                            </div>
-                                                </div>
-                                                <div role="tabpanel" class="tab-pane fade" id="buzz">
-                                                        <div class="row">
-                                                                <div class="col-md-6">
-                                                                    <label>Experience</label>
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <p>Expert</p>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-md-6">
-                                                                    <label>Hourly Rate</label>
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <p>10$/hr</p>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-md-6">
-                                                                    <label>Total Projects</label>
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <p>230</p>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-md-6">
-                                                                    <label>English Level</label>
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <p>Expert</p>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-md-6">
-                                                                    <label>Availability</label>
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <p>6 months</p>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-md-12">
-                                                                    <label>Your Bio</label>
-                                                                    <br/>
-                                                                    <p>Your detail description</p>
-                                                                </div>
-                                                            </div>
-                                                </div>
-                                                
-                                              </div>
-                          
-                                </div>
-                                <div class="col-md-4 img-main-rightPart">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="row image-right-part">
-                                                <div class="col-md-6 pull-left image-right-detail">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <a href="http://camaradecomerciozn.com/">
-                                            <div class="col-md-12 image-right">
-                                                <img src="">
-                                            </div>
-                                        </a>
-                                        <div class="col-md-12 image-right-detail-section2">
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Projects</h6>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p class="m-b-10 f-w-600">Recent</p>
+                        <h6 class="text-muted f-w-400">Sam Disuja</h6>
                     </div>
+                    <div class="col-sm-6">
+                        <p class="m-b-10 f-w-600">Most Viewed</p>
+                        <h6 class="text-muted f-w-400">Dinoter husainm</h6>
+                    </div>
+                </div>
+                <ul class="social-link list-unstyled m-t-40 m-b-10">
+                    <li><a href="#!" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="facebook" data-abc="true"><i class="mdi mdi-facebook feather icon-facebook facebook" aria-hidden="true"></i></a></li>
+                    <li><a href="#!" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="twitter" data-abc="true"><i class="mdi mdi-twitter feather icon-twitter twitter" aria-hidden="true"></i></a></li>
+                     <li><a href="#!" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="instagram" data-abc="true"><i class="mdi mdi-instagram feather icon-instagram instagram" aria-hidden="true"></i></a></
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
-
-    <div class="modal fade" id="contact" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="contact">Contact</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <p for="msj">Se enviará este mensaje a la persona que desea contactar, indicando que te quieres comunicar con el. Para esto debes de ingresar tu información personal.</p>
-                    </div>
-                    <div class="form-group">
-                        <label for="txtFullname">Nombre completo</label>
-                        <input type="text" id="txtFullname" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label for="txtEmail">Email</label>
-                        <input type="text" id="txtEmail" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label for="txtPhone">Teléfono</label>
-                        <input type="text" id="txtPhone" class="form-control">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+</div>
+</div>
+</div>
+</div>
+  
 </body>
+
 {% endblock %}
