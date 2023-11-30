@@ -64,8 +64,7 @@ img {
   }
   
   .bg-c-lite-green {
-        background: -webkit-gradient(linear, left top, right top, from(#f29263), to(#ee5a6f));
-    background: linear-gradient(to right, #af142c, #f29263);
+    background:  #657ED4;
   }
   
   .user-profile {
@@ -79,12 +78,6 @@ img {
   .m-b-25 {
     margin-bottom: 25px;
   }
-  
-  .img-radius {
-    border-radius: 5px;
-  }
-  
-  
   
   h6 {
     font-size: 14px;
