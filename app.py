@@ -156,24 +156,29 @@ def signin():
             flash('User does not exist', 'error')
     return render_template('signin.html', title='Sign In', form=form)
 
+# Sign out a user
 @app.route('/signout', methods=['GET'])
 def signout():
     session.pop('user', None)
     return redirect(url_for('signin'))
 
+# Error Handling 404
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
 
+# Error Handling 500
 @app.errorhandler(500)
 def internal_server_error(e):
     return render_template('500.html'), 500
 
+# User Profile Page - only accessible if a user is signed in
+# needs review
 @app.route('/user')
 def user():
     return render_template('user.html')
 
-
+# Register a new entity
 @app.route("/register", methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
