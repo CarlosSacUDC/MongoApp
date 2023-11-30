@@ -16,3 +16,17 @@ box-sizing:border-box;}
     .nav-link{text-align: center;}
 }
 
+.card {
+    margin: 0 auto; /* Added */
+    float: none; /* Added */
+    margin-bottom: 0; /* Added */
+}
+
+img {
+    margin: 0 auto; /* Added */
+    float: none; /* Added */
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin-left: 20px;
+  }
