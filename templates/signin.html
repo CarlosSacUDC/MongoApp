@@ -36,7 +36,11 @@
                             body: JSON.stringify({email: email})
                         })
                         .then(response => response.json())
-                        .then(data => console.log(data));
+                        .then(data => {
+                            console.log(data);
+                            // Redirect to user page
+                            window.location.href = "/user";
+                        });
 
                     })
                     .catch((error) => {

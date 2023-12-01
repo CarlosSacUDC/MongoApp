@@ -1,9 +1,6 @@
 {% extends "header.html" %}
 {% block content %}
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="user.css" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
+
 
 <body>
     <div class="page-content page-container" id="page-content">
@@ -17,7 +14,7 @@
                                     <div class="m-b-25" style="display: flex; justify-content: center; align-items: center;">
                                         <img src="https://source.boringavatars.com/beam" style="max-width:100%; margin:auto;" alt="User-Profile-Image">
                                     </div>
-                                    <h6 class="f-w-600">MongoApp User</h6>
+                                    <h6 class="f-w-600" id="username"></h6>
                                     <i class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
                                 </div>
                             </div>
@@ -27,7 +24,7 @@
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <p class="m-b-10 f-w-600">Email</p>
-                                            <h6 class="text-muted f-w-400">contactme@email.com</h6>
+                                            <h6 class="text-muted f-w-400" id="email"></h6>
                                         </div>
                                         <div class="col-sm-6">
                                             <p class="m-b-10 f-w-600">Phone</p>
@@ -67,11 +64,27 @@
         </div>
     </div>
     <div class="container">
-        <a href="{{ url_for('signout') }}">
-            <button type="button" class="btn btn-secondary">Sign-out</button>
-        </a>
+        <button type="button" class="btn btn-secondary" onclick="signOut()">Sign-out</button>
     </div>
-
+    
+    <script>
+        function signOut() {
+            firebase.auth().signOut().then(function() {
+                // Sign-out successful on client-side.
+                console.log('User signed out on client-side.');
+                // Redirect to server-side sign-out route.
+                window.location.href = "{{ url_for('signout') }}";
+            }).catch(function(error) {
+                // An error happened.
+                console.error('Error signing out:', error);
+            });
+        }
+        // Parse the JSON 
+        var user_info = JSON.parse('{{ user_info | safe }}');
+        // Use JavaScript to insert the user's name into the HTML
+        document.getElementById('username').innerHTML = user_info.name;
+        document.getElementById('email').innerHTML = user_info.email;
+    </script>
 </body>
 
 {% endblock %}

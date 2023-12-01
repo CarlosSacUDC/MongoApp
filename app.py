@@ -158,6 +158,14 @@ def signin():
         password = form.password.data
         try:
             user = auth.get_user_by_email(email)
+            if user and user.password == password:  # Replace with your actual password check
+                # Store user information in session
+                session['user'] = {
+                    'uid': user.uid,
+                    'name': user.name,
+                    'email': user.email
+                }
+                return redirect(url_for('user'))
         except auth.UserNotFoundError:
             # If the user does not exist, flash an error message
             flash('User does not exist', 'error')
@@ -181,9 +189,21 @@ def internal_server_error(e):
 
 # User Profile Page - only accessible if a user is signed in
 # needs review
+
+from bson.json_util import dumps
+
 @app.route('/user')
 def user():
-    return render_template('user.html')
+    # Check if user is logged in
+    if 'user' not in session:
+        return redirect(url_for('signin'))
+    # Get user email from session
+    user_email = session['user']
+    # Query the users collection with the user's email
+    user_info = user_collection.find_one({'email': user_email})
+    # Convert the user_info document to a JSON string
+    user_info_json = dumps(user_info)
+    return render_template('user.html', user_info=user_info_json)
 
 @app.route('/services', methods=['GET', 'POST'])
 def services():
