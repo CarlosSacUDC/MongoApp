@@ -15,6 +15,7 @@ from flask import Markup
 from flask import session
 from flask import redirect, url_for
 from json import dumps, loads
+from bson.json_util import dumps
 
 
 # Initialize the Firebase Admin SDK
@@ -188,10 +189,6 @@ def internal_server_error(e):
     return render_template('500.html'), 500
 
 # User Profile Page - only accessible if a user is signed in
-# needs review
-
-from bson.json_util import dumps
-
 @app.route('/user')
 def user():
     # Check if user is logged in
