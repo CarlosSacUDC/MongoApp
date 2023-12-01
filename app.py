@@ -253,15 +253,6 @@ def thesaurus_view():
 
 
 
-
-@app.route('/orgs', methods=['GET'])
-def get_orgs():
-    orgs = list(collection.find())  # Retrieve all documents
-    for org in orgs:  # Convert ObjectIds to strings
-        org['_id'] = str(org['_id'])
-    return jsonify(orgs)  # Convert list to JSON and return it
-
-
 # CREATE and READ 
 @app.route('/usrs', methods=["GET", "POST"])
 def usrs():
