@@ -235,19 +235,19 @@ def thesaurus_view():
     return render_template('thersaurus.html', terms=terms)
 
 
-# Register a new entity
-@app.route("/register", methods=['GET', 'POST'])
-def register():
-    form = RegistrationForm()
-    if form.validate_on_submit():
+# # Register a new entity
+# @app.route("/register", methods=['GET', 'POST'])
+# def register():
+#     form = RegistrationForm()
+#     if form.validate_on_submit():
 
 
 
         
         
-        flash('Account created for {form.email.data}!', 'success')
-        return redirect(url_for('home'))
-    return render_template('register.html', title='Register', form=form)
+#         flash('Account created for {form.email.data}!', 'success')
+#         return redirect(url_for('home'))
+#     return render_template('register.html', title='Register', form=form)
 
 
 
