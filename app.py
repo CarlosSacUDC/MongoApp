@@ -16,6 +16,7 @@ from flask import session
 from flask import redirect, url_for
 from json import dumps, loads
 from bson.json_util import dumps
+from pymongo.errors import PyMongoError
 
 
 # Initialize the Firebase Admin SDK
@@ -46,8 +47,7 @@ app: Flask = Flask(__name__)
 # our initial form page
 @app.route("/")
 def index():
-    first_name = "John"
-    return f"Hello, {first_name}!"
+    return redirect(url_for('signin'))
 
 app.config['SECRET_KEY'] = "mysecretkey"
 
@@ -233,6 +233,16 @@ def thesaurus_view():
     terms = [loads(doc) for doc in set(dumps(doc, default=str) for doc in terms)]
     terms.sort(key=lambda term: term['term'].strip().lower())
     return render_template('thersaurus.html', terms=terms)
+
+@app.route('/add_term', methods=['POST'])
+def add_term():
+    term = request.json['term']
+    acronym = request.json['acronym']
+    definition = request.json['definition']
+    print(term)
+    mythersaurus.insert_one({"term": term, "acronym": acronym, "definition": definition})
+
+    return f"CREATE: The term {term} ({acronym}) with definition {definition} has been added.\n"
 
 
 # # Register a new entity
