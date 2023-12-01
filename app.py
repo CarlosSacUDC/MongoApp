@@ -33,22 +33,15 @@ user_collection: Collection = database.get_collection('users')
 assessment: Collection = database.get_collection('assessment')
 educational_support: Collection = database.get_collection('educational support')
 therapy: Collection = database.get_collection('therapy')
+mythersaurus: Collection = database.get_collection('thersaurus')
 
 assessment.create_index([("name", "text"), ("keyword", "text")])
 educational_support.create_index([("agency", "text"), ("keyword", "text")])
 therapy.create_index([("provider", "text"), ("keyword", "text")])
-
+mythersaurus.create_index([("term", "text"),("acronym", "text")])
 
 # instantiating new object with “name”
 app: Flask = Flask(__name__)
-
-# @app.route('/verify_id_token', methods=['POST'])
-# def verify_id_token():
-#     request_data = request.get_json()
-#     print(request_data)
-#     if request_data is None or 'idToken' not in request_data:
-#         return 'Bad request', 400
-#     id_token = request_data['idToken']
 
 # our initial form page
 @app.route("/")
@@ -228,6 +221,19 @@ def services():
     for item in therapies:
         item['_id'] = str(item['_id'])
     return render_template('services.html', assessments=assessments, educational_supports=educational_supports, therapies=therapies)
+
+@app.route('/thesaurus', methods=['GET', 'POST'])
+def thesaurus_view():
+    query = {}
+    if request.method == 'POST':
+        search_term = request.form.get('query')
+        if search_term:
+            query = {"$or": [{"term": {"$regex": search_term, "$options": 'i'}}, {"acronym": {"$regex": search_term, "$options": 'i'}}]}
+    terms = list(mythersaurus.find(query))
+    terms = [loads(doc) for doc in set(dumps(doc, default=str) for doc in terms)]
+    terms.sort(key=lambda term: term['term'].strip().lower())
+    return render_template('thersaurus.html', terms=terms)
+
 
 # Register a new entity
 @app.route("/register", methods=['GET', 'POST'])
