@@ -1,0 +1,61 @@
+{% extends "header.html" %}
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <form action="/services" method="post" class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="query" required>
+                <p> </p>
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% if assessments %}
+    <h2>Assessments</h2>
+    <div class="card-deck">
+        {% for assessment in assessments %}
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ assessment.name }}</h5>
+                    <p class="card-text">From ages: {{ assessment.age_from }} to age: {{ assessment.age_to }}</p>
+                    <p class="card-text">Division: {{ assessment.division }}</p>
+                    <a href="{{ assessment.site_url }}" class="btn btn-primary">Visit Website</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+{% if educational_supports %}
+    <h2>Educational Supports</h2>
+    <div class="card-deck">
+        {% for support in educational_supports %}
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ support.agency }}</h5>
+                    <p class="card-text">{{ support.address }}, {{support.city}}, {{support.state}}, {{support.zipcode}}</p>
+                    <a href="{{ support.website }}" class="btn btn-primary">Visit Website</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+{% if therapies %}
+    <h2>Therapies</h2>
+    <div class="card-deck">
+        {% for therapy in therapies %}
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ therapy.provider }}</h5>
+                    <p class="card-text">{{ therapy.address }}, {{therapy.city}}, {{therapy.state}}, {{therapy.zipcode}}</p>
+                    <a href="{{ therapy.website }}" class="btn btn-primary">Visit Website</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+{% endblock %}

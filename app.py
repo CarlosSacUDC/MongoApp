@@ -14,6 +14,8 @@ from wtforms.validators import DataRequired, EqualTo
 from flask import Markup
 from flask import session
 from flask import redirect, url_for
+from json import dumps, loads
+
 
 # Initialize the Firebase Admin SDK
 cred = firebase_admin.credentials.Certificate('testmongo.json')
@@ -26,10 +28,15 @@ mongo_client: MongoClient = MongoClient(connection_string)
 
 # add in your database and collection from Atlas 
 database: Database = mongo_client.get_database('Neuro')
-
 user_collection: Collection = database.get_collection('users')
+assessment: Collection = database.get_collection('assessment')
+educational_support: Collection = database.get_collection('educational support')
+therapy: Collection = database.get_collection('therapy')
 
-collection: Collection = database.get_collection('assessment')
+assessment.create_index([("name", "text"), ("keyword", "text")])
+educational_support.create_index([("agency", "text"), ("keyword", "text")])
+therapy.create_index([("provider", "text"), ("keyword", "text")])
+
 
 # instantiating new object with “name”
 app: Flask = Flask(__name__)
@@ -178,6 +185,33 @@ def internal_server_error(e):
 def user():
     return render_template('user.html')
 
+@app.route('/services', methods=['GET', 'POST'])
+def services():
+    query = {}
+    if request.method == 'POST':
+        search_term = request.form.get('query')
+        query = {"$text": {"$search": search_term}}
+    assessments = list(assessment.find(query))
+    educational_supports = list(educational_support.find(query))
+    therapies = list(therapy.find(query))
+    # Convert documents to JSON strings and add them to a set to remove duplicates
+    assessments = [loads(doc) for doc in set(dumps(doc, default=str) for doc in assessments)]
+    educational_supports = [loads(doc) for doc in set(dumps(doc, default=str) for doc in educational_supports)]
+    therapies = [loads(doc) for doc in set(dumps(doc, default=str) for doc in therapies)]
+    
+    print('Assessments:', assessments)
+    print('Educational Supports:', educational_supports)
+    print('Therapies:', therapies)
+    
+    # Convert ObjectIds to strings
+    for item in assessments:
+        item['_id'] = str(item['_id'])
+    for item in educational_supports:
+        item['_id'] = str(item['_id'])
+    for item in therapies:
+        item['_id'] = str(item['_id'])
+    return render_template('services.html', assessments=assessments, educational_supports=educational_supports, therapies=therapies)
+
 # Register a new entity
 @app.route("/register", methods=['GET', 'POST'])
 def register():
@@ -187,7 +221,7 @@ def register():
 
 
         
-        # Here you should add the code to create a new user in your database
+        
         flash('Account created for {form.email.data}!', 'success')
         return redirect(url_for('home'))
     return render_template('register.html', title='Register', form=form)
