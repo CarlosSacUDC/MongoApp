@@ -152,7 +152,7 @@ def signin():
         password = form.password.data
         try:
             user = auth.get_user_by_email(email)
-            if user and user.password == password:  # Replace with your actual password check
+            if user and user.password == password:  
                 # Store user information in session
                 session['user'] = {
                     'uid': user.uid,
@@ -245,46 +245,11 @@ def add_term():
     return f"CREATE: The term {term} ({acronym}) with definition {definition} has been added.\n"
 
 
-# # Register a new entity
-# @app.route("/register", methods=['GET', 'POST'])
-# def register():
-#     form = RegistrationForm()
-#     if form.validate_on_submit():
-
-
-
-        
-        
-#         flash('Account created for {form.email.data}!', 'success')
-#         return redirect(url_for('home'))
-#     return render_template('register.html', title='Register', form=form)
-
-
-
-
-
-# CREATE and READ 
-@app.route('/usrs', methods=["GET", "POST"])
-def usrs():
-    if request.method == 'POST':
-        # CREATE
-        name: str = request.json['name']
-        location: str = request.json['location']
-
-        # insert new book into books collection in MongoDB
-        collection.insert_one({"name": name, "location": location})
-
-        return f"CREATE: Your orgs {name} ({location} location) has been added.\n "
-
-    elif request.method == 'GET':
-        # READ
-        neuro = list(collection.find())
-        neworgs = []
-
-        for names in orgs:
-            name = names['name']
-            location = names['location']
-            shelf = {'name': name, 'location': location}
-            neworgs.insert(0,shelf)
-
-        return neworgs
+# Register a new entity
+@app.route("/register", methods=['GET', 'POST'])
+def register():
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        flash('Account created for {form.email.data}!', 'success')
+        return redirect(url_for('home'))
+    return render_template('register.html', title='Register', form=form)
