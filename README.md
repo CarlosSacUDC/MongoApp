@@ -33,10 +33,15 @@ To install the requirements for this project, run the following command:
 pip install -r requirements.txt
 ```
 
-// This will install the following packages:
-
-
-
+This will install the following packages:
+Flask
+pymongo
+python-dotenv
+black
+Werkzeug
+pyrebase4
+flask-wtf
+firebase-admin
 
 
 
