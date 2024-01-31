@@ -36,7 +36,7 @@ pip install -r requirements.txt
 This will install the following packages:
 
 **Database**
-<img src=' https://i.imgur.com/dOfKw7l.gif ' title='Video Demo' width='' alt='Video Demo' />
+<img src='https://i.imgur.com/dOfKw7l.gif' title='Video Demo' width='100' alt='Video Demo' />
 
 
 ## License
