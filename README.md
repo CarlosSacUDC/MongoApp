@@ -3,7 +3,7 @@ Submitted by:
 - **Team Member 1: Carlos Sac**
 - **Team Member 2: Karla Ferrel-Castillo**
 ### Summary
-The Neuro Resource App is a comprehensive platform designed to connect the neurodivergent community and their caregivers with essential resources and services. This Flask-based web application leverages MongoDB Atlas for its database and Google Firebase for user session validation. It aims to reduce the time and stress associated with finding and accessing resources by providing a user-friendly interface and location-centric database.
+The Neuro Resource App is a comprehensive platform designed to connect the neurodivergent community and their caregivers with essential resources and services. This Flask-based web application leverages MongoDB Atlas for its database and Google Firebase for user session validation and token management. It aims to reduce the time and stress associated with finding and accessing resources by providing a user-friendly interface and location-centric database.
 
 ### Description
 The app serves as a bridge between the neurodivergent community and non-profit organizations, local government-funded bodies, school systems, and behavioral health departments. It provides information and services in areas such as health, therapies, support groups, education, and advocacy. The app’s primary goal is to make resource discovery and access easier and more efficient for the neurodivergent community and their caregivers
